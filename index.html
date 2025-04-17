@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyfotok Login</title>
+    <style>
+        :root {
+            --neon-pink: #ff2a6d;
+            --neon-blue: #05d9e8;
+            --neon-purple: #7700ff;
+            --dark-bg: #0d0221;
+            --cyber-yellow: #f7f700;
+            --cyber-green: #07f85f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Orbitron', 'Segoe UI', sans-serif;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 var(--neon-pink), -0.03em -0.04em 0 var(--neon-blue),
+                           0.025em 0.04em 0 var(--neon-purple);
+            }
+            15% {
+                text-shadow: 0.05em 0 0 var(--neon-pink), -0.03em -0.04em 0 var(--neon-blue),
+                           0.025em 0.04em 0 var(--neon-purple);
+            }
+            16% {
+                text-shadow: -0.05em -0.025em 0 var(--neon-pink), 0.025em 0.035em 0 var(--neon-blue),
+                           -0.05em -0.05em 0 var(--neon-purple);
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 var(--neon-pink), 0.025em 0.035em 0 var(--neon-blue),
+                           -0.05em -0.05em 0 var(--neon-purple);
+            }
+            50% {
+                text-shadow: 0.05em 0.035em 0 var(--neon-pink), 0.03em 0 0 var(--neon-blue),
+                           0 -0.04em 0 var(--neon-purple);
+            }
+            99% {
+                text-shadow: 0.05em 0.035em 0 var(--neon-pink), 0.03em 0 0 var(--neon-blue),
+                           0 -0.04em 0 var(--neon-purple);
+            }
+            100% {
+                text-shadow: -0.05em 0 0 var(--neon-pink), -0.025em -0.04em 0 var(--neon-blue),
+                           -0.04em -0.025em 0 var(--neon-purple);
+            }
+        }
+
+        @keyframes scanline {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        body {
+            background: var(--dark-bg);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15) 0px,
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                transparent 50%,
+                rgba(0, 0, 0, 0.25) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scanline 10s linear infinite;
+        }
+
+        .login-container {
+            background: rgba(13, 2, 33, 0.8);
+            padding: 2rem;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(5, 217, 232, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue), var(--neon-purple));
+            z-index: -1;
+            border-radius: 6px;
+            animation: borderGlow 3s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h1 {
+            color: var(--neon-blue);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: glitch 1s infinite;
+        }
+
+        .login-header p {
+            color: var(--neon-pink);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--neon-blue);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(13, 2, 33, 0.8);
+            border: 1px solid var(--neon-blue);
+            border-radius: 3px;
+            font-size: 1rem;
+            color: var(--neon-pink);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 10px rgba(255, 42, 109, 0.3);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 1rem;
+            background: transparent;
+            color: var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+            border-radius: 3px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-login:hover {
+            background: var(--neon-blue);
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px rgba(5, 217, 232, 0.5);
+        }
+
+        .error-message {
+            color: var(--neon-pink);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .success-message {
+            color: var(--cyber-yellow);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hint-link {
+            color: var(--cyber-yellow) !important;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .hint-link:hover {
+            color: var(--cyber-yellow) !important;
+            text-shadow: 0 0 10px var(--cyber-yellow);
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Secure Login</h1>
+            <p>Please enter your credentials</p>
+        </div>
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required 
+                       pattern="[a-zA-Z0-9_]{3,20}" 
+                       title="Username must be between 3-20 characters and can only contain letters, numbers, and underscores">
+                <div class="error-message" id="usernameError"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <div class="error-message" id="passwordError"></div>
+            </div>
+            <button type="submit" class="btn-login">Login</button>
+            <div class="error-message" id="loginError"></div>
+            <div class="success-message" id="loginSuccess"></div>
+        </form>
+        <div class="forgot-password">
+            <a href="hint.html" class="hint-link">Need a Hint?</a>
+        </div>
+    </div>
+
+    <script>
+        let loginAttempts = 0;
+        const MAX_LOGIN_ATTEMPTS = 3;
+        const LOCKOUT_TIME = 300000; // 5 minutes in milliseconds
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const loginError = document.getElementById('loginError');
+            const loginSuccess = document.getElementById('loginSuccess');
+
+            // Reset error messages
+            loginError.style.display = 'none';
+            loginSuccess.style.display = 'none';
+
+            // Check if user is locked out
+            if (loginAttempts >= MAX_LOGIN_ATTEMPTS) {
+                loginError.textContent = 'Account temporarily locked. Please try again later.';
+                loginError.style.display = 'block';
+                return false;
+            }
+
+            // Basic validation
+            if (!validateUsername(username)) {
+                document.getElementById('usernameError').textContent = 'Invalid username format';
+                document.getElementById('usernameError').style.display = 'block';
+                return false;
+            }
+
+            if (!validatePassword(password)) {
+                document.getElementById('passwordError').textContent = 'Password does not meet requirements';
+                document.getElementById('passwordError').style.display = 'block';
+                return false;
+            }
+
+            // Simulate login attempt (replace with actual API call)
+            if (username === 'avengers' && password === 'assemble') {
+                loginSuccess.textContent = 'Login successful!';
+                loginSuccess.style.display = 'block';
+                loginAttempts = 0;
+                // Redirect to answer.html after successful login
+                setTimeout(() => {
+                    window.location.href = 'answer.html';
+                }, 1000);
+            } else {
+                loginAttempts++;
+                loginError.textContent = `Invalid credentials. ${MAX_LOGIN_ATTEMPTS - loginAttempts} attempts remaining.`;
+                loginError.style.display = 'block';
+
+                if (loginAttempts >= MAX_LOGIN_ATTEMPTS) {
+                    setTimeout(() => {
+                        loginAttempts = 0;
+                    }, LOCKOUT_TIME);
+                }
+            }
+
+            return false;
+        }
+
+        function validateUsername(username) {
+            const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+            return usernameRegex.test(username);
+        }
+
+        function validatePassword(password) {
+            return true; // Remove password validation
+        }
+
+        // Add CSRF token to form submission
+        function addCSRFToken() {
+            const token = generateCSRFToken();
+            const form = document.getElementById('loginForm');
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = 'csrf_token';
+            csrfInput.value = token;
+            form.appendChild(csrfInput);
+        }
+
+        function generateCSRFToken() {
+            return Array.from(crypto.getRandomValues(new Uint8Array(32)))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
+        }
+
+        // Initialize CSRF protection
+        addCSRFToken();
+    </script>
+</body>
+</html> 

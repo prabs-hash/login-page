@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Avenger</title>
+    <style>
+        :root {
+            --neon-pink: #ff2a6d;
+            --neon-blue: #05d9e8;
+            --neon-purple: #7700ff;
+            --dark-bg: #0d0221;
+            --cyber-yellow: #f7f700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Orbitron', 'Segoe UI', sans-serif;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 var(--neon-pink), -0.03em -0.04em 0 var(--neon-blue),
+                           0.025em 0.04em 0 var(--neon-purple);
+            }
+            15% {
+                text-shadow: 0.05em 0 0 var(--neon-pink), -0.03em -0.04em 0 var(--neon-blue),
+                           0.025em 0.04em 0 var(--neon-purple);
+            }
+            16% {
+                text-shadow: -0.05em -0.025em 0 var(--neon-pink), 0.025em 0.035em 0 var(--neon-blue),
+                           -0.05em -0.05em 0 var(--neon-purple);
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 var(--neon-pink), 0.025em 0.035em 0 var(--neon-blue),
+                           -0.05em -0.05em 0 var(--neon-purple);
+            }
+            50% {
+                text-shadow: 0.05em 0.035em 0 var(--neon-pink), 0.03em 0 0 var(--neon-blue),
+                           0 -0.04em 0 var(--neon-purple);
+            }
+            99% {
+                text-shadow: 0.05em 0.035em 0 var(--neon-pink), 0.03em 0 0 var(--neon-blue),
+                           0 -0.04em 0 var(--neon-purple);
+            }
+            100% {
+                text-shadow: -0.05em 0 0 var(--neon-pink), -0.025em -0.04em 0 var(--neon-blue),
+                           -0.04em -0.025em 0 var(--neon-purple);
+            }
+        }
+
+        body {
+            background: var(--dark-bg);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+        }
+
+        .welcome-container {
+            background: rgba(13, 2, 33, 0.8);
+            padding: 2rem;
+            border-radius: 5px;
+            width: 70%;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(5, 217, 232, 0.3);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            text-align: center;
+        }
+
+        .welcome-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue), var(--neon-purple));
+            z-index: -1;
+            border-radius: 6px;
+            animation: borderGlow 3s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        h1 {
+            color: var(--neon-blue);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: glitch 1s infinite;
+        }
+
+        p {
+            color: var(--neon-pink);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .avengers-text {
+            color: var(--cyber-yellow);
+            font-size: 2rem;
+            margin-top: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px var(--cyber-yellow),
+                           0 0 10px var(--cyber-yellow),
+                           0 0 15px var(--cyber-yellow);
+            }
+            to {
+                text-shadow: 0 0 10px var(--cyber-yellow),
+                           0 0 20px var(--cyber-yellow),
+                           0 0 30px var(--cyber-yellow);
+            }
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            margin-top: 2rem;
+            background: transparent;
+            color: var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+            border-radius: 3px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background: var(--neon-blue);
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px rgba(5, 217, 232, 0.5);
+        }
+
+        .kid-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 5px;
+            margin: 1rem auto;
+            display: block;
+            border: 2px solid var(--neon-purple);
+            box-shadow: 0 0 20px rgba(119, 0, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .kid-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(119, 0, 255, 0.5);
+        }
+
+        @media (max-width: 480px) {
+            .welcome-container {
+                padding: 2rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .avengers-text {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="welcome-container">
+        <h1>Welcome Avenger</h1>
+        <p>You have successfully accessed the secure system. Your credentials have been verified and you now have access to the Avengers database.</p>
+        <img src="kid.jpg" alt="Kid Avenger" class="kid-image">
+        <div class="avengers-text">Assemble Complete</div>
+        <a href="index.html" class="back-button">Back to Login</a>
+    </div>
+</body>
+</html>
